@@ -4,7 +4,9 @@ const startDB = async()=>{
     try{
         await sequelize.authenticate();
         console.log("Conectado a la base de datos con exito.");
-        await sequelize.sync();
+        await sequelize.sync({
+            force: true
+        });
     }catch(err){
         console.log("Hubo un problema al conectarse con la base de datos: ",);
     }

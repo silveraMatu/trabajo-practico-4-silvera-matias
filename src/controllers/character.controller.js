@@ -46,3 +46,26 @@ export const createCharacter = async(req, res)=>{
         res.status(500).json({Message: error.message});
     }
 }
+
+export const getALLCharacters = async(req, res)=>{
+    try {
+        const characters = await Character.findAll();
+        
+        if(characters.length > 0) return res.status(200).json(characters);
+
+        return res.status(404).json({errorMessage: "Database is empty."});
+    } catch (error) {
+        res.status(500).json({Message: error.message});
+    }
+}
+
+export const getCharacterById = async (req, res) =>{
+    try {
+        const character = await Character.findByPk(req.params.id);
+        if(character) return res.status(200).json(character);
+
+        return res.status(404).json({errorMessage: "Character not found."});
+    } catch (error) {
+        res.status(500).json({Message: error.message});
+    }
+}
