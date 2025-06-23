@@ -11,6 +11,11 @@ app.use(express.json());
 //Se usan las rutas a partir del path /api
 app.use("/api", characterRoutes);
 
+//Error handling middleware para responder accesos a rutas que no existen
+app.use((req, res)=>{
+    res.status(404).json({errorMessage: "Direction not found."});
+});
+
 startDB().then(()=>{
     app.listen(PORT, ()=>{
         console.log("Servidor corriendo.");
